@@ -1,4 +1,4 @@
-import { Router, Response } from "express";
+import { Router, Request, Response } from "express";
 import { adminDb } from "../config/firebase";
 import { verifyToken } from "../middleware/auth.middleware";
 import { AuthRequest } from "../middleware/auth.middleware";
@@ -8,7 +8,7 @@ const router = Router();
 /**
  * Verifica la conexión a Firestore
  */
-router.get("/health", async (req, res: Response) => {
+router.get("/health", async (req: Request, res: Response) => {
   try {
     // Intentar leer una colección para verificar conexión
     const testRef = adminDb.collection("_test");

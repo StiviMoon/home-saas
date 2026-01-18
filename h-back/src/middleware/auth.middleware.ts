@@ -6,6 +6,9 @@ export interface AuthRequest extends Request {
     uid: string;
     email?: string;
   };
+  body?: any;
+  params?: any;
+  headers?: any;
 }
 
 /**

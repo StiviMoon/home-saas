@@ -20,15 +20,15 @@
     "dotenv": "^16.4.7",
     "express": "^5.2.1",
     "firebase-admin": "^13.6.0",
-    "uuid": "^13.0.0"
-  },
-  "devDependencies": {
+    "uuid": "^13.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.5",
     "@types/uuid": "^10.0.0",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
   }
 }
