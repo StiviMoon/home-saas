@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import usersRoutes from "./users.routes";
 import firestoreRoutes from "./firestore.routes";
 import conjuntosRoutes from "./conjuntos.routes";
