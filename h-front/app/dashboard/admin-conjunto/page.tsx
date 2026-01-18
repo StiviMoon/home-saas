@@ -3,6 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
 import {
   Card,
   CardContent,
@@ -348,51 +349,92 @@ const AdminConjuntoPage = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="text-xs md:text-sm">Nombre</TableHead>
-                          <TableHead className="text-xs md:text-sm">Email</TableHead>
-                          <TableHead className="text-xs md:text-sm">Unidad</TableHead>
-                          <TableHead className="text-xs md:text-sm">Registrado</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {onlyResidents.map((resident) => (
-                          <TableRow key={resident.id}>
-                            <TableCell>
-                              <div className="flex items-center gap-2">
-                                <UserIcon className="h-4 w-4 text-muted-foreground shrink-0" />
-                                <span className="font-medium text-sm md:text-base">{resident.nombre}</span>
+                  <>
+                    {/* Vista de Cards para Móvil */}
+                    <div className="md:hidden space-y-3 px-4 pb-4">
+                      {onlyResidents.map((resident) => (
+                        <Card key={resident.id} className="p-4">
+                          <div className="space-y-3">
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex items-center gap-2 min-w-0 flex-1">
+                                <UserIcon className="h-5 w-5 text-primary shrink-0" />
+                                <div className="min-w-0 flex-1">
+                                  <p className="font-semibold text-sm truncate">{resident.nombre}</p>
+                                  <p className="text-xs text-muted-foreground truncate mt-0.5">{resident.email}</p>
+                                </div>
                               </div>
-                            </TableCell>
-                            <TableCell>
-                              <div className="flex items-center gap-2">
-                                <Mail className="h-3 w-3 text-muted-foreground shrink-0" />
-                                <span className="text-xs md:text-sm">{resident.email}</span>
-                              </div>
-                            </TableCell>
-                            <TableCell>
+                            </div>
+                            <div className="flex flex-wrap gap-3 pt-2 border-t">
                               {resident.unidad ? (
-                                <div className="flex items-center gap-2">
-                                  <Home className="h-3 w-3 text-muted-foreground shrink-0" />
-                                  <span className="text-xs md:text-sm font-medium">{resident.unidad}</span>
+                                <div className="flex items-center gap-1.5">
+                                  <Home className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                                  <span className="text-xs font-medium">{resident.unidad}</span>
                                 </div>
                               ) : (
-                                <span className="text-xs text-muted-foreground italic">Sin asignar</span>
+                                <div className="flex items-center gap-1.5">
+                                  <Home className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                                  <span className="text-xs text-muted-foreground italic">Sin asignar</span>
+                                </div>
                               )}
-                            </TableCell>
-                            <TableCell>
-                              <span className="text-xs text-muted-foreground">
-                                {formatDate(resident.created_at)}
-                              </span>
-                            </TableCell>
+                              <div className="flex items-center gap-1.5">
+                                <Calendar className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                                <span className="text-xs text-muted-foreground">
+                                  {formatDate(resident.created_at)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+
+                    {/* Vista de Tabla para Desktop */}
+                    <div className="hidden md:block overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="text-xs md:text-sm">Nombre</TableHead>
+                            <TableHead className="text-xs md:text-sm">Email</TableHead>
+                            <TableHead className="text-xs md:text-sm">Unidad</TableHead>
+                            <TableHead className="text-xs md:text-sm">Registrado</TableHead>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
+                        </TableHeader>
+                        <TableBody>
+                          {onlyResidents.map((resident) => (
+                            <TableRow key={resident.id}>
+                              <TableCell>
+                                <div className="flex items-center gap-2">
+                                  <UserIcon className="h-4 w-4 text-muted-foreground shrink-0" />
+                                  <span className="font-medium text-sm md:text-base">{resident.nombre}</span>
+                                </div>
+                              </TableCell>
+                              <TableCell>
+                                <div className="flex items-center gap-2">
+                                  <Mail className="h-3 w-3 text-muted-foreground shrink-0" />
+                                  <span className="text-xs md:text-sm">{resident.email}</span>
+                                </div>
+                              </TableCell>
+                              <TableCell>
+                                {resident.unidad ? (
+                                  <div className="flex items-center gap-2">
+                                    <Home className="h-3 w-3 text-muted-foreground shrink-0" />
+                                    <span className="text-xs md:text-sm font-medium">{resident.unidad}</span>
+                                  </div>
+                                ) : (
+                                  <span className="text-xs text-muted-foreground italic">Sin asignar</span>
+                                )}
+                              </TableCell>
+                              <TableCell>
+                                <span className="text-xs text-muted-foreground">
+                                  {formatDate(resident.created_at)}
+                                </span>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </>
                 )}
               </CardContent>
             </Card>
@@ -435,21 +477,10 @@ const AdminConjuntoPage = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="text-xs md:text-sm">Título</TableHead>
-                          <TableHead className="text-xs md:text-sm">Creado por</TableHead>
-                          <TableHead className="text-xs md:text-sm">Categoría</TableHead>
-                          <TableHead className="text-xs md:text-sm">Ubicación</TableHead>
-                          <TableHead className="text-xs md:text-sm">Fecha</TableHead>
-                          <TableHead className="text-xs md:text-sm">Estado</TableHead>
-                          <TableHead className="text-xs md:text-sm">Acciones</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {reports.map((report) => {
+                  <>
+                    {/* Vista de Cards para Móvil */}
+                    <div className="md:hidden space-y-3 px-4 pb-4">
+                      {reports.map((report) => {
                           // Buscar el creador por usuario_id (que es el id del usuario en Firestore)
                           // El usuario_id en reportes es el id del usuario (que es igual a auth_id)
                           // Intentar múltiples formas de búsqueda para asegurar compatibilidad
@@ -479,7 +510,125 @@ const AdminConjuntoPage = () => {
                                              (updateReportMutation.variables?.reportId === report.id);
                           
                           return (
-                            <TableRow key={report.id}>
+                            <Card key={report.id} className="p-4">
+                              <div className="space-y-3">
+                                {/* Header con título y estado */}
+                                <div className="flex items-start justify-between gap-2">
+                                  <div className="flex-1 min-w-0">
+                                    <h3 className="font-semibold text-sm line-clamp-2 mb-1">{report.titulo}</h3>
+                                    <p className="text-xs text-muted-foreground line-clamp-2">{report.descripcion}</p>
+                                  </div>
+                                  <div className="flex items-center gap-1.5 shrink-0">
+                                    {getStatusIcon(report.estado)}
+                                    <span className="text-xs font-medium">{getStatusLabel(report.estado)}</span>
+                                  </div>
+                                </div>
+                                
+                                {/* Info del creador */}
+                                {creator ? (
+                                  <div className="flex items-center gap-2 pt-2 border-t">
+                                    <UserIcon className="h-4 w-4 text-primary shrink-0" />
+                                    <div className="min-w-0 flex-1">
+                                      <p className="text-xs font-medium">{creator.nombre}</p>
+                                      <p className="text-[10px] text-muted-foreground truncate">{creator.email}</p>
+                                    </div>
+                                  </div>
+                                ) : report.es_anonimo ? (
+                                  <div className="flex items-center gap-2 pt-2 border-t">
+                                    <UserIcon className="h-4 w-4 text-muted-foreground shrink-0" />
+                                    <span className="text-xs text-muted-foreground italic">Anónimo</span>
+                                  </div>
+                                ) : null}
+                                
+                                {/* Metadata */}
+                                <div className="flex flex-wrap gap-3 pt-2 border-t">
+                                  <div className="flex items-center gap-1.5">
+                                    <Tag className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                                    <span className="text-xs">{getCategoryLabel(report.categoria)}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5">
+                                    <MapPin className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                                    <span className="text-xs truncate max-w-[150px]">{report.ubicacion}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5">
+                                    <Calendar className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                                    <span className="text-xs text-muted-foreground">
+                                      {formatDate(report.created_at)}
+                                    </span>
+                                  </div>
+                                </div>
+                                
+                                {/* Selector de estado */}
+                                <div className="pt-2 border-t">
+                                  <Select
+                                    value={report.estado}
+                                    onChange={(e) => {
+                                      const newEstado = e.target.value as ReportStatus;
+                                      if (newEstado !== report.estado) {
+                                        updateReportMutation.mutate({ reportId: report.id, estado: newEstado });
+                                      }
+                                    }}
+                                    disabled={isUpdating}
+                                    className="w-full h-9 text-xs"
+                                  >
+                                    <option value="abierto">Abierto</option>
+                                    <option value="en_progreso">En Progreso</option>
+                                    <option value="resuelto">Resuelto</option>
+                                    <option value="cerrado">Cerrado</option>
+                                  </Select>
+                                </div>
+                              </div>
+                            </Card>
+                          );
+                        })}
+                    </div>
+
+                    {/* Vista de Tabla para Desktop */}
+                    <div className="hidden md:block overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead className="text-xs md:text-sm">Título</TableHead>
+                            <TableHead className="text-xs md:text-sm">Creado por</TableHead>
+                            <TableHead className="text-xs md:text-sm">Categoría</TableHead>
+                            <TableHead className="text-xs md:text-sm">Ubicación</TableHead>
+                            <TableHead className="text-xs md:text-sm">Fecha</TableHead>
+                            <TableHead className="text-xs md:text-sm">Estado</TableHead>
+                            <TableHead className="text-xs md:text-sm">Acciones</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {reports.map((report) => {
+                            // Buscar el creador por usuario_id (que es el id del usuario en Firestore)
+                            // El usuario_id en reportes es el id del usuario (que es igual a auth_id)
+                            // Intentar múltiples formas de búsqueda para asegurar compatibilidad
+                            let creator = usersMap.get(report.usuario_id);
+                            
+                            // Si no se encuentra, buscar por todos los campos posibles
+                            if (!creator && usersMap.size > 0) {
+                              creator = Array.from(usersMap.values()).find(u => 
+                                u.id === report.usuario_id || 
+                                u.auth_id === report.usuario_id
+                              );
+                            }
+                            
+                            // Debug temporal para ver qué está pasando
+                            if (!creator && !report.es_anonimo) {
+                              console.log("⚠️ No se encontró creador para reporte:", {
+                                reportId: report.id,
+                                reportTitulo: report.titulo,
+                                reportUsuarioId: report.usuario_id,
+                                usersMapSize: usersMap.size,
+                                usuariosEnMapa: Array.from(usersMap.keys()),
+                                todosLosUsuarios: Array.from(usersMap.values()).map(u => ({ id: u.id, auth_id: u.auth_id, nombre: u.nombre }))
+                              });
+                            }
+                            
+                            const isUpdating = updateReportMutation.isPending && 
+                                               (updateReportMutation.variables?.reportId === report.id);
+                            
+                            return (
+                              <TableRow key={report.id}>
                               <TableCell>
                                 <div className="flex flex-col gap-1">
                                   <span className="font-medium text-sm md:text-base line-clamp-2">
@@ -532,7 +681,7 @@ const AdminConjuntoPage = () => {
                                 </div>
                               </TableCell>
                               <TableCell>
-                                <select
+                                <Select
                                   value={report.estado}
                                   onChange={(e) => {
                                     const newEstado = e.target.value as ReportStatus;
@@ -541,13 +690,13 @@ const AdminConjuntoPage = () => {
                                     }
                                   }}
                                   disabled={isUpdating}
-                                  className="flex h-9 min-w-[140px] rounded-md border border-input bg-background px-3 py-1 text-xs ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                  className="min-w-[140px] h-9 text-xs"
                                 >
                                   <option value="abierto">Abierto</option>
                                   <option value="en_progreso">En Progreso</option>
                                   <option value="resuelto">Resuelto</option>
                                   <option value="cerrado">Cerrado</option>
-                                </select>
+                                </Select>
                               </TableCell>
                             </TableRow>
                           );
@@ -555,6 +704,7 @@ const AdminConjuntoPage = () => {
                       </TableBody>
                     </Table>
                   </div>
+                  </>
                 )}
               </CardContent>
             </Card>
