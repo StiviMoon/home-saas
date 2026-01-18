@@ -1,62 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  /* Esquema de colores claro y amigable */
-  --color-background: hsl(0 0% 98%);
+  /* Identidad Visual Fija - Diseño Moderno y Elegante */
+  /* Fondo principal suave con tonos neutros */
+  --color-background: hsl(248 30% 98%);
   --color-foreground: hsl(222 47% 11%);
+  /* Cards blancas limpias */
   --color-card: hsl(0 0% 100%);
   --color-card-foreground: hsl(222 47% 11%);
   --color-popover: hsl(0 0% 100%);
   --color-popover-foreground: hsl(222 47% 11%);
-  /* Color primario azul amigable y vibrante */
+  /* Color primario azul vibrante y profesional */
   --color-primary: hsl(221 83% 53%);
   --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(210 40% 96%);
+  /* Secundario gris suave */
+  --color-secondary: hsl(248 20% 96%);
   --color-secondary-foreground: hsl(222 47% 11%);
-  --color-muted: hsl(210 40% 96%);
+  /* Muted para textos secundarios */
+  --color-muted: hsl(248 15% 95%);
   --color-muted-foreground: hsl(215 16% 47%);
-  --color-accent: hsl(210 40% 96%);
+  /* Accent para hovers y estados */
+  --color-accent: hsl(248 20% 96%);
   --color-accent-foreground: hsl(222 47% 11%);
+  /* Destructivo para acciones peligrosas */
   --color-destructive: hsl(0 84% 60%);
-  --color-destructive-foreground: hsl(0 0% 98%);
-  --color-border: hsl(214 32% 91%);
-  --color-input: hsl(214 32% 91%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  /* Bordes sutiles */
+  --color-border: hsl(248 15% 88%);
+  --color-input: hsl(0 0% 100%);
+  /* Focus rings */
   --color-ring: hsl(221 83% 53%);
-  --color-ring-offset: hsl(0 0% 98%);
+  --color-ring-offset: hsl(0 0% 100%);
   --color-ring-offset-background: hsl(0 0% 100%);
+  /* Border radius consistente */
   --radius: 0.75rem;
+  /* Colores para gráficos */
   --color-chart-1: hsl(221 83% 53%);
-  --color-chart-2: hsl(142 76% 36%);
-  --color-chart-3: hsl(30 80% 55%);
-  --color-chart-4: hsl(280 65% 60%);
-  --color-chart-5: hsl(340 75% 55%);
-}
-
-@theme dark {
-  /* Tema dark más claro y amigable */
-  --color-background: hsl(222 47% 11%);
-  --color-foreground: hsl(213 31% 91%);
-  --color-card: hsl(224 71% 4%);
-  --color-card-foreground: hsl(213 31% 91%);
-  --color-popover: hsl(224 71% 4%);
-  --color-popover-foreground: hsl(213 31% 91%);
-  /* Color primario azul más brillante en dark */
-  --color-primary: hsl(217 91% 60%);
-  --color-primary-foreground: hsl(222 47% 11%);
-  --color-secondary: hsl(217 33% 17%);
-  --color-secondary-foreground: hsl(213 31% 91%);
-  --color-muted: hsl(217 33% 17%);
-  --color-muted-foreground: hsl(215 20% 65%);
-  --color-accent: hsl(217 33% 17%);
-  --color-accent-foreground: hsl(213 31% 91%);
-  --color-destructive: hsl(0 63% 31%);
-  --color-destructive-foreground: hsl(213 31% 91%);
-  --color-border: hsl(217 33% 17%);
-  --color-input: hsl(217 33% 17%);
-  --color-ring: hsl(217 91% 60%);
-  --color-ring-offset: hsl(222 47% 11%);
-  --color-ring-offset-background: hsl(224 71% 4%);
-  --color-chart-1: hsl(217 91% 60%);
   --color-chart-2: hsl(142 76% 36%);
   --color-chart-3: hsl(30 80% 55%);
   --color-chart-4: hsl(280 65% 60%);
@@ -68,18 +47,17 @@
     border-color: var(--color-border);
   }
   body {
-    background: linear-gradient(to bottom, hsl(0 0% 99%), hsl(210 40% 98%));
+    background: hsl(248 30% 98%);
+    background-image: 
+      radial-gradient(at 0% 0%, hsl(221 83% 53% / 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsl(221 83% 53% / 0.02) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsl(221 83% 53% / 0.015) 0px, transparent 50%);
     color: var(--color-foreground);
     font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     min-height: 100vh;
-  }
-  
-  /* Dark mode background */
-  .dark body {
-    background: linear-gradient(to bottom, hsl(222 47% 11%), hsl(224 71% 4%));
   }
   input[type="text"],
   input[type="email"],
@@ -158,17 +136,14 @@
     background: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 48%));
   }
   .bg-gradient-card {
-    background: linear-gradient(to bottom, hsl(0 0% 100%), hsl(210 40% 99%));
-  }
-  .dark .bg-gradient-card {
-    background: linear-gradient(to bottom, hsl(224 71% 4%), hsl(222 47% 11%));
+    background: hsl(0 0% 100%);
   }
   /* Sombra suave para cards */
   .shadow-card {
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
   }
   .shadow-card-lg {
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   }
   /* Optimización de texto para móvil */
   @media (max-width: 768px) {

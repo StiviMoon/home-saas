@@ -38,6 +38,8 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { useState, useMemo } from "react";
 import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 const ReporteDetailPage = () => {
   const { user } = useAuth();
@@ -307,10 +309,10 @@ const ReporteDetailPage = () => {
                 <CardContent className="p-4 md:p-6 pt-0 space-y-4">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <div className="flex-1 min-w-0">
-                      <Label htmlFor="estado" className="text-sm font-medium mb-2 block">
+                      <Label htmlFor="estado" className="text-sm font-semibold mb-2 block">
                         Estado del Reporte
                       </Label>
-                      <select
+                      <Select
                         id="estado"
                         value={report.estado}
                         onChange={(e) => {
@@ -320,13 +322,12 @@ const ReporteDetailPage = () => {
                           }
                         }}
                         disabled={updateReportMutation.isPending}
-                        className="flex h-11 w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         <option value="abierto">Abierto</option>
                         <option value="en_progreso">En Progreso</option>
                         <option value="resuelto">Resuelto</option>
                         <option value="cerrado">Cerrado</option>
-                      </select>
+                      </Select>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       {getStatusIcon(report.estado)}
@@ -604,39 +605,41 @@ const ReporteDetailPage = () => {
               <CardContent className="p-4 md:p-6 pt-0 space-y-5 md:space-y-6">
                 {/* Formulario para agregar comentario */}
                 {canAddComments && (
-                  <form onSubmit={handleAddComment} className="space-y-4">
+                  <form onSubmit={handleAddComment} className="space-y-4 p-4 rounded-lg bg-muted/30 border border-border">
                     <div className="space-y-2">
-                      <Label htmlFor="comentario" className="text-sm font-medium">Nuevo Comentario</Label>
-                      <textarea
+                      <Label htmlFor="comentario" className="text-sm font-semibold">Nuevo Comentario</Label>
+                      <Textarea
                         id="comentario"
-                        placeholder="Escribe tu comentario aquí..."
+                        placeholder="Escribe tu comentario aquí. Puedes agregar actualizaciones, preguntas o información relevante..."
                         value={nuevoComentario}
                         onChange={(e) => setNuevoComentario(e.target.value)}
-                        rows={4}
-                        className="flex min-h-[100px] md:min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2.5 text-base md:text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                        rows={5}
                       />
                     </div>
                     {(isAdmin || isSuperAdmin) && (
-                      <div className="flex items-start space-x-3">
+                      <div className="flex items-start space-x-3 p-3 rounded-md bg-background/80 border border-border/50">
                         <input
                           type="checkbox"
                           id="interno"
                           checked={esInterno}
                           onChange={(e) => setEsInterno(e.target.checked)}
-                          className="h-4 w-4 rounded border-input cursor-pointer mt-0.5 shrink-0"
+                          className="h-4 w-4 rounded border-input cursor-pointer mt-0.5 shrink-0 focus:ring-2 focus:ring-ring focus:ring-offset-2"
                         />
                         <Label
                           htmlFor="interno"
-                          className="text-sm font-normal cursor-pointer leading-relaxed"
+                          className="text-sm font-normal cursor-pointer leading-relaxed flex-1"
                         >
-                          Comentario interno (solo visible para administradores)
+                          <span className="font-medium">Comentario interno</span>
+                          <span className="block text-xs text-muted-foreground mt-0.5">
+                            Solo visible para administradores
+                          </span>
                         </Label>
                       </div>
                     )}
                     <Button
                       type="submit"
                       disabled={addCommentMutation.isPending || !nuevoComentario.trim()}
-                      className="w-full md:w-auto h-11 md:h-10"
+                      className="w-full md:w-auto h-11 md:h-10 font-semibold"
                     >
                       {addCommentMutation.isPending ? (
                         <>

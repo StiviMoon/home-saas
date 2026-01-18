@@ -215,14 +215,14 @@ const SelectConjuntoPage = () => {
               </form>
             ) : (
               <div className="space-y-4">
-                <div className="p-4 bg-green-50 dark:bg-green-950 rounded-md border border-green-200 dark:border-green-800">
+                <div className="p-4 bg-green-50 rounded-md border border-green-200">
                   <div className="flex items-center gap-2 mb-2">
-                    <Building2 className="h-5 w-5 text-green-600 dark:text-green-400" />
-                    <h3 className="font-semibold text-green-900 dark:text-green-100">
+                    <Building2 className="h-5 w-5 text-green-600" />
+                    <h3 className="font-semibold text-green-900">
                       {conjunto.nombre}
                     </h3>
                   </div>
-                  <p className="text-sm text-green-700 dark:text-green-300">
+                  <p className="text-sm text-green-700">
                     {conjunto.direccion}, {conjunto.ciudad}
                   </p>
                 </div>

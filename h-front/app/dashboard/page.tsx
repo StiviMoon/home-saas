@@ -260,7 +260,7 @@ const DashboardPage = () => {
         <div className="px-4 md:px-8 py-4 md:py-6 space-y-4 md:space-y-6 max-w-7xl mx-auto">
           {/* Información del conjunto y unidad - móvil compacto */}
           {!isSuperAdmin && userData?.conjunto_id && (
-            <Card className="border-2">
+            <Card>
               <CardContent className="p-3 md:p-4">
                 {conjuntoLoading ? (
                   <div className="flex items-center justify-center py-2">
@@ -420,7 +420,7 @@ const DashboardPage = () => {
                   return (
                     <Card
                       key={report.id}
-                      className="cursor-pointer active:scale-[0.98] transition-native hover:shadow-lg border-2 hover:border-primary/30 overflow-hidden will-change-transform"
+                      className="cursor-pointer active:scale-[0.98] transition-native hover:shadow-md overflow-hidden will-change-transform"
                       onClick={() => router.push(`/dashboard/reportes/${report.id}`)}
                     >
                       <CardContent className="p-0">
@@ -428,7 +428,7 @@ const DashboardPage = () => {
                         <div className="p-3 md:p-4 pb-2 md:pb-3 border-b">
                           <div className="flex items-center gap-3">
                             {/* Avatar */}
-                            <div className="relative h-10 w-10 md:h-12 md:w-12 rounded-full bg-primary/90 flex items-center justify-center shrink-0 overflow-hidden ring-2 ring-primary/20">
+                            <div className="relative h-10 w-10 md:h-12 md:w-12 rounded-full bg-primary/90 flex items-center justify-center shrink-0 overflow-hidden">
                               {creator ? (
                                 <div className="w-full h-full flex items-center justify-center text-white font-semibold text-sm md:text-base">
                                   {getInitials(creator.nombre)}

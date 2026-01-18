@@ -685,10 +685,10 @@ const AdminPage = () => {
                           <span
                             className={`px-2 py-1 rounded text-[10px] md:text-xs font-medium ${
                               usuario.rol === "super_admin"
-                                ? "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200"
+                                ? "bg-purple-100 text-purple-800"
                                 : usuario.rol === "admin"
-                                ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                                : "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
+                                ? "bg-blue-100 text-blue-800"
+                                : "bg-gray-100 text-gray-800"
                             }`}
                           >
                             {usuario.rol === "super_admin"
@@ -757,10 +757,10 @@ const AdminPage = () => {
                     <span className="text-sm text-muted-foreground">Rol:</span>
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
                       userToDelete.rol === "super_admin"
-                        ? "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200"
+                        ? "bg-purple-100 text-purple-800"
                         : userToDelete.rol === "admin"
-                        ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                        : "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-gray-100 text-gray-800"
                     }`}>
                       {userToDelete.rol === "super_admin"
                         ? "Super Admin"

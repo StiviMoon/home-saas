@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
@@ -179,9 +181,13 @@ const NuevoReportePage = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-4 md:p-6 pt-0">
-                <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Título */}
                   <div className="space-y-2">
-                    <Label htmlFor="titulo" className="text-sm font-medium">Título del Reporte *</Label>
+                    <Label htmlFor="titulo" className="text-sm font-semibold flex items-center gap-1.5">
+                      Título del Reporte
+                      <span className="text-destructive">*</span>
+                    </Label>
                     <Input
                       id="titulo"
                       value={formData.titulo}
@@ -191,47 +197,62 @@ const NuevoReportePage = () => {
                       placeholder="Ej: Fuga de agua en el pasillo del segundo piso"
                       required
                       maxLength={100}
-                      className="text-base md:text-sm" // Mejor tamaño de texto en móvil
+                      className="h-11 md:h-10"
                     />
+                    <p className="text-xs text-muted-foreground">
+                      Máximo 100 caracteres. Sé específico y claro.
+                    </p>
                   </div>
 
+                  {/* Descripción */}
                   <div className="space-y-2">
-                    <Label htmlFor="descripcion" className="text-sm font-medium">Descripción *</Label>
-                    <textarea
+                    <Label htmlFor="descripcion" className="text-sm font-semibold flex items-center gap-1.5">
+                      Descripción
+                      <span className="text-destructive">*</span>
+                    </Label>
+                    <Textarea
                       id="descripcion"
                       value={formData.descripcion}
                       onChange={(e) =>
                         setFormData({ ...formData, descripcion: e.target.value })
                       }
-                      placeholder="Describe el problema o situación en detalle..."
+                      placeholder="Describe el problema o situación en detalle. Incluye información relevante como el momento en que ocurrió, la frecuencia, etc."
                       required
-                      rows={5}
-                      className="flex min-h-[120px] md:min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2.5 text-base md:text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                      rows={6}
                     />
+                    <p className="text-xs text-muted-foreground">
+                      Cuantos más detalles proporciones, más fácil será resolver el problema.
+                    </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Categoría y Ubicación */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <Label htmlFor="categoria" className="text-sm font-medium">Categoría *</Label>
-                      <select
+                      <Label htmlFor="categoria" className="text-sm font-semibold flex items-center gap-1.5">
+                        Categoría
+                        <span className="text-destructive">*</span>
+                      </Label>
+                      <Select
                         id="categoria"
                         value={formData.categoria}
                         onChange={(e) =>
                           setFormData({ ...formData, categoria: e.target.value as ReportCategory })
                         }
                         required
-                        className="flex h-11 md:h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base md:text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         <option value="infraestructura">Infraestructura</option>
                         <option value="seguridad">Seguridad</option>
                         <option value="aseo">Aseo</option>
                         <option value="convivencia">Convivencia</option>
                         <option value="otro">Otro</option>
-                      </select>
+                      </Select>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="ubicacion" className="text-sm font-medium">Ubicación *</Label>
+                      <Label htmlFor="ubicacion" className="text-sm font-semibold flex items-center gap-1.5">
+                        Ubicación
+                        <span className="text-destructive">*</span>
+                      </Label>
                       <Input
                         id="ubicacion"
                         value={formData.ubicacion}
@@ -240,13 +261,16 @@ const NuevoReportePage = () => {
                         }
                         placeholder="Ej: Pasillo segundo piso, Apto 201"
                         required
-                        className="text-base md:text-sm"
+                        className="h-11 md:h-10"
                       />
+                      <p className="text-xs text-muted-foreground">
+                        Especifica dónde está el problema.
+                      </p>
                     </div>
                   </div>
 
                   {/* Componente de subida de imágenes */}
-                  <div className="space-y-3">
+                  <div className="space-y-3 pt-2 border-t">
                     <ImageUpload
                       files={imageFiles}
                       onFilesChange={handleFilesChange}
@@ -254,7 +278,8 @@ const NuevoReportePage = () => {
                     />
                   </div>
 
-                  <div className="flex items-start space-x-3 pt-2">
+                  {/* Checkbox anónimo */}
+                  <div className="flex items-start space-x-3 p-4 rounded-lg bg-muted/50 border border-border">
                     <input
                       type="checkbox"
                       id="es_anonimo"
@@ -262,35 +287,42 @@ const NuevoReportePage = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, es_anonimo: e.target.checked })
                       }
-                      className="h-4 w-4 rounded border-input cursor-pointer mt-0.5 shrink-0"
+                      className="h-4 w-4 rounded border-input cursor-pointer mt-0.5 shrink-0 focus:ring-2 focus:ring-ring focus:ring-offset-2"
                     />
-                    <Label htmlFor="es_anonimo" className="text-sm font-normal cursor-pointer leading-relaxed">
-                      Publicar como anónimo
+                    <Label htmlFor="es_anonimo" className="text-sm font-normal cursor-pointer leading-relaxed flex-1">
+                      <span className="font-medium">Publicar como anónimo</span>
+                      <span className="block text-xs text-muted-foreground mt-1">
+                        Tu nombre no se mostrará en el reporte, solo el contenido.
+                      </span>
                     </Label>
                   </div>
 
+                  {/* Botones de acción */}
                   <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4 border-t">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => router.push("/dashboard")}
-                      className="flex-1 h-11 md:h-10"
+                      className="flex-1 h-12 md:h-11"
                       disabled={isSubmitting}
                     >
                       Cancelar
                     </Button>
                     <Button 
                       type="submit" 
-                      className="flex-1 h-11 md:h-10 font-semibold" 
+                      className="flex-1 h-12 md:h-11 font-semibold text-base" 
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Creando...
+                          Creando reporte...
                         </>
                       ) : (
-                        "Crear Reporte"
+                        <>
+                          <FileText className="mr-2 h-4 w-4" />
+                          Crear Reporte
+                        </>
                       )}
                     </Button>
                   </div>
