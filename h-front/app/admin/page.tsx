@@ -262,71 +262,76 @@ const AdminPage = () => {
 
   return (
     <AuthGuard requireAuth={true}>
-      <div className="min-h-screen p-4 md:p-8">
-        <div className="mx-auto max-w-7xl space-y-6 md:space-y-8">
+      <div className="min-h-screen p-3 md:p-8">
+        <div className="mx-auto max-w-7xl space-y-4 md:space-y-8">
           {/* Header */}
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-2">
-                <UserCog className="h-6 w-6 md:h-8 md:w-8" />
-                Panel de Super Administrador
+          <div className="flex items-start md:items-center justify-between flex-col md:flex-row gap-2 md:gap-4">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg md:text-3xl font-bold tracking-tight flex items-center gap-1.5 md:gap-2">
+                <UserCog className="h-4 w-4 md:h-8 md:w-8 shrink-0" />
+                <span className="truncate">Panel de Super Administrador</span>
               </h1>
-              <p className="text-sm md:text-base text-muted-foreground mt-2">
+              <p className="text-[10px] md:text-base text-muted-foreground mt-0.5 md:mt-2 line-clamp-2">
                 Gestiona conjuntos residenciales, usuarios y visualiza estadísticas generales
               </p>
             </div>
-            <Button onClick={() => router.push("/dashboard")} variant="outline" className="text-sm md:text-base">
+            <Button 
+              onClick={() => router.push("/dashboard")} 
+              variant="outline" 
+              size="sm"
+              className="text-[10px] md:text-base h-8 md:h-10 px-3 md:px-4 w-full md:w-auto shrink-0"
+            >
               Volver al Dashboard
             </Button>
           </div>
 
           {/* Estadísticas Generales */}
           {statistics && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Reportes</CardTitle>
-                  <FileText className="h-4 w-4 text-muted-foreground" />
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
+              <Card className="p-2 md:p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                  <CardTitle className="text-[10px] md:text-sm font-medium leading-tight">Total Reportes</CardTitle>
+                  <FileText className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{statistics.total}</div>
-                  <p className="text-xs text-muted-foreground mt-1">Todos los reportes</p>
+                <CardContent className="p-0 pt-1 md:pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{statistics.total}</div>
+                  <p className="text-[9px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">Todos los reportes</p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Abiertos</CardTitle>
-                  <AlertCircle className="h-4 w-4 text-blue-500" />
+              <Card className="p-2 md:p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                  <CardTitle className="text-[10px] md:text-sm font-medium leading-tight">Abiertos</CardTitle>
+                  <AlertCircle className="h-3 w-3 md:h-4 md:w-4 text-blue-500 shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{statistics.por_estado.abierto.cantidad}</div>
-                  <p className="text-xs text-muted-foreground mt-1">
+                <CardContent className="p-0 pt-1 md:pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{statistics.por_estado.abierto.cantidad}</div>
+                  <p className="text-[9px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">
                     {statistics.por_estado.abierto.porcentaje}% del total
                   </p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">En Progreso</CardTitle>
-                  <Clock className="h-4 w-4 text-yellow-500" />
+              <Card className="p-2 md:p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                  <CardTitle className="text-[10px] md:text-sm font-medium leading-tight">En Progreso</CardTitle>
+                  <Clock className="h-3 w-3 md:h-4 md:w-4 text-yellow-500 shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{statistics.por_estado.en_progreso.cantidad}</div>
-                  <p className="text-xs text-muted-foreground mt-1">
+                <CardContent className="p-0 pt-1 md:pt-0">
+                  <div className="text-lg md:text-2xl font-bold">{statistics.por_estado.en_progreso.cantidad}</div>
+                  <p className="text-[9px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">
                     {statistics.por_estado.en_progreso.porcentaje}% del total
                   </p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Resueltos/Cerrados</CardTitle>
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
+              <Card className="p-2 md:p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                  <CardTitle className="text-[10px] md:text-sm font-medium leading-tight">Resueltos/Cerrados</CardTitle>
+                  <CheckCircle2 className="h-3 w-3 md:h-4 md:w-4 text-green-500 shrink-0" />
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
+                <CardContent className="p-0 pt-1 md:pt-0">
+                  <div className="text-lg md:text-2xl font-bold">
                     {statistics.por_estado.resuelto.cantidad + statistics.por_estado.cerrado.cantidad}
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">
+                  <p className="text-[9px] md:text-xs text-muted-foreground mt-0.5 md:mt-1">
                     {Math.round(
                       ((statistics.por_estado.resuelto.cantidad + statistics.por_estado.cerrado.cantidad) /
                         statistics.total) *
@@ -342,29 +347,29 @@ const AdminPage = () => {
 
           {/* Estadísticas por Categoría */}
           {statistics && statistics.total > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
-                  <BarChart3 className="h-5 w-5" />
-                  Estadísticas por Categoría
+            <Card className="p-3 md:p-6">
+              <CardHeader className="p-0 pb-3 md:pb-6">
+                <CardTitle className="flex items-center gap-1.5 md:gap-2 text-sm md:text-xl">
+                  <BarChart3 className="h-3.5 w-3.5 md:h-5 md:w-5 shrink-0" />
+                  <span>Estadísticas por Categoría</span>
                 </CardTitle>
-                <CardDescription>Distribución porcentual de reportes por categoría</CardDescription>
+                <CardDescription className="text-[10px] md:text-sm mt-1">Distribución porcentual de reportes por categoría</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="p-0">
+                <div className="space-y-3 md:space-y-4">
                   {Object.entries(statistics.por_categoria).map(([categoria, data]) => {
                     const categoryData = data as { cantidad: number; porcentaje: number };
                     return (
                       <div key={categoria}>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium">{getCategoryLabel(categoria)}</span>
-                          <span className="text-sm text-muted-foreground">
+                        <div className="flex items-center justify-between mb-1.5 md:mb-2">
+                          <span className="text-xs md:text-sm font-medium">{getCategoryLabel(categoria)}</span>
+                          <span className="text-xs md:text-sm text-muted-foreground">
                             {categoryData.cantidad} ({categoryData.porcentaje}%)
                           </span>
                         </div>
-                        <div className="w-full bg-muted rounded-full h-2">
+                        <div className="w-full bg-muted rounded-full h-1.5 md:h-2">
                           <div
-                            className="bg-primary h-2 rounded-full transition-all"
+                            className="bg-primary h-1.5 md:h-2 rounded-full transition-all"
                             style={{ width: `${categoryData.porcentaje}%` }}
                           />
                         </div>
@@ -377,72 +382,73 @@ const AdminPage = () => {
           )}
 
           {/* Estadísticas de Usuarios */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xs font-medium">Total Usuarios</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4">
+            <Card className="p-2 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                <CardTitle className="text-[9px] md:text-xs font-medium leading-tight">Total Usuarios</CardTitle>
+                <Users className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground shrink-0" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{usersStats.total}</div>
+              <CardContent className="p-0 pt-1 md:pt-0">
+                <div className="text-base md:text-2xl font-bold">{usersStats.total}</div>
               </CardContent>
             </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xs font-medium">Super Admins</CardTitle>
-                <UserCog className="h-4 w-4 text-purple-500" />
+            <Card className="p-2 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                <CardTitle className="text-[9px] md:text-xs font-medium leading-tight">Super Admins</CardTitle>
+                <UserCog className="h-3 w-3 md:h-4 md:w-4 text-purple-500 shrink-0" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{usersStats.super_admins}</div>
+              <CardContent className="p-0 pt-1 md:pt-0">
+                <div className="text-base md:text-2xl font-bold">{usersStats.super_admins}</div>
               </CardContent>
             </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xs font-medium">Admins</CardTitle>
-                <UserCog className="h-4 w-4 text-blue-500" />
+            <Card className="p-2 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                <CardTitle className="text-[9px] md:text-xs font-medium leading-tight">Admins</CardTitle>
+                <UserCog className="h-3 w-3 md:h-4 md:w-4 text-blue-500 shrink-0" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{usersStats.admins}</div>
+              <CardContent className="p-0 pt-1 md:pt-0">
+                <div className="text-base md:text-2xl font-bold">{usersStats.admins}</div>
               </CardContent>
             </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xs font-medium">Residentes</CardTitle>
-                <Users className="h-4 w-4 text-gray-500" />
+            <Card className="p-2 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                <CardTitle className="text-[9px] md:text-xs font-medium leading-tight">Residentes</CardTitle>
+                <Users className="h-3 w-3 md:h-4 md:w-4 text-gray-500 shrink-0" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{usersStats.residentes}</div>
+              <CardContent className="p-0 pt-1 md:pt-0">
+                <div className="text-base md:text-2xl font-bold">{usersStats.residentes}</div>
               </CardContent>
             </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xs font-medium">Con Conjunto</CardTitle>
-                <Building2 className="h-4 w-4 text-green-500" />
+            <Card className="p-2 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 md:pb-2 p-0">
+                <CardTitle className="text-[9px] md:text-xs font-medium leading-tight">Con Conjunto</CardTitle>
+                <Building2 className="h-3 w-3 md:h-4 md:w-4 text-green-500 shrink-0" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{usersStats.con_conjunto}</div>
+              <CardContent className="p-0 pt-1 md:pt-0">
+                <div className="text-base md:text-2xl font-bold">{usersStats.con_conjunto}</div>
               </CardContent>
             </Card>
           </div>
 
           {/* Sección de Conjuntos */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="flex items-center gap-2">
-                    <Building2 className="h-5 w-5" />
-                    Conjuntos Residenciales
+          <Card className="p-3 md:p-6">
+            <CardHeader className="p-0 pb-3 md:pb-6">
+              <div className="flex items-start md:items-center justify-between flex-col md:flex-row gap-2 md:gap-4">
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="flex items-center gap-1.5 md:gap-2 text-sm md:text-lg">
+                    <Building2 className="h-3.5 w-3.5 md:h-5 md:w-5 shrink-0" />
+                    <span className="truncate">Conjuntos Residenciales</span>
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-[10px] md:text-sm mt-0.5 md:mt-1">
                     Crea y gestiona conjuntos residenciales
                   </CardDescription>
                 </div>
                 <Dialog open={showCreateConjunto} onOpenChange={setShowCreateConjunto}>
                   <DialogTrigger asChild>
-                    <Button className="gap-2">
-                      <Plus className="h-4 w-4" />
-                      Crear Conjunto
+                    <Button className="gap-2 text-xs md:text-sm px-3 md:px-4">
+                      <Plus className="h-3 w-3 md:h-4 md:w-4" />
+                      <span className="hidden sm:inline">Crear Conjunto</span>
+                      <span className="sm:hidden">Crear</span>
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
@@ -529,65 +535,68 @@ const AdminPage = () => {
                 </Dialog>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
               {conjuntosLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                <div className="flex items-center justify-center py-6 md:py-8">
+                  <Loader2 className="h-5 w-5 md:h-6 md:w-6 animate-spin text-primary" />
                 </div>
               ) : conjuntos.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">
+                <p className="text-[10px] md:text-sm text-muted-foreground text-center py-6 md:py-8">
                   No hay conjuntos registrados
                 </p>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nombre</TableHead>
-                      <TableHead>Dirección</TableHead>
-                      <TableHead>Ciudad</TableHead>
-                      <TableHead>Código de Acceso</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {conjuntos.map((conjunto) => (
-                      <TableRow key={conjunto.id}>
-                        <TableCell className="font-medium">{conjunto.nombre}</TableCell>
-                        <TableCell>{conjunto.direccion}</TableCell>
-                        <TableCell>{conjunto.ciudad}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Key className="h-4 w-4 text-muted-foreground" />
-                            <code className="text-sm bg-muted px-2 py-1 rounded">
-                              {conjunto.codigo_acceso}
-                            </code>
-                          </div>
-                        </TableCell>
+                <div className="overflow-x-auto -mx-3 px-3 md:mx-0 md:px-0 no-scrollbar">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-[10px] md:text-sm min-w-[120px] py-2">Nombre</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[150px] py-2">Dirección</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[80px] py-2">Ciudad</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[130px] py-2">Código</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {conjuntos.map((conjunto) => (
+                        <TableRow key={conjunto.id}>
+                          <TableCell className="font-medium text-[10px] md:text-sm py-2">{conjunto.nombre}</TableCell>
+                          <TableCell className="text-[10px] md:text-sm py-2">{conjunto.direccion}</TableCell>
+                          <TableCell className="text-[10px] md:text-sm py-2">{conjunto.ciudad}</TableCell>
+                          <TableCell className="py-2">
+                            <div className="flex items-center gap-1.5">
+                              <Key className="h-2.5 w-2.5 md:h-4 md:w-4 text-muted-foreground shrink-0" />
+                              <code className="text-[9px] md:text-sm bg-muted px-1.5 py-0.5 md:px-2 md:py-1 rounded break-all">
+                                {conjunto.codigo_acceso}
+                              </code>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               )}
             </CardContent>
           </Card>
 
           {/* Sección de Usuarios y Asignar Admin */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="h-5 w-5" />
-                    Usuarios Registrados
+          <Card className="p-3 md:p-6">
+            <CardHeader className="p-0 pb-3 md:pb-6">
+              <div className="flex items-start md:items-center justify-between flex-col md:flex-row gap-2 md:gap-4">
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="flex items-center gap-1.5 md:gap-2 text-sm md:text-lg">
+                    <Users className="h-3.5 w-3.5 md:h-5 md:w-5 shrink-0" />
+                    <span className="truncate">Usuarios Registrados</span>
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-[10px] md:text-sm mt-0.5 md:mt-1">
                     Asigna rol de administrador a usuarios por email
                   </CardDescription>
                 </div>
                 <Dialog open={showAssignAdmin} onOpenChange={setShowAssignAdmin}>
                   <DialogTrigger asChild>
-                    <Button className="gap-2">
-                      <UserCog className="h-4 w-4" />
-                      Asignar Admin
+                    <Button className="gap-2 text-xs md:text-sm px-3 md:px-4">
+                      <UserCog className="h-3 w-3 md:h-4 md:w-4" />
+                      <span className="hidden sm:inline">Asignar Admin</span>
+                      <span className="sm:hidden">Admin</span>
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
@@ -650,83 +659,86 @@ const AdminPage = () => {
                 </Dialog>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
               {usersLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                <div className="flex items-center justify-center py-6 md:py-8">
+                  <Loader2 className="h-5 w-5 md:h-6 md:w-6 animate-spin text-primary" />
                 </div>
               ) : users.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">
+                <p className="text-[10px] md:text-sm text-muted-foreground text-center py-6 md:py-8">
                   No hay usuarios registrados
                 </p>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-xs md:text-sm">Email</TableHead>
-                      <TableHead className="text-xs md:text-sm">Nombre</TableHead>
-                      <TableHead className="text-xs md:text-sm">Rol</TableHead>
-                      <TableHead className="text-xs md:text-sm">Conjunto</TableHead>
-                      <TableHead className="text-xs md:text-sm">Unidad</TableHead>
-                      <TableHead className="text-xs md:text-sm">Acciones</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {users.map((usuario) => (
-                      <TableRow key={usuario.id}>
-                        <TableCell className="text-xs md:text-sm">
-                          <div className="flex items-center gap-2">
-                            <Mail className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground shrink-0" />
-                            <span className="truncate max-w-[150px] md:max-w-none">{usuario.email}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-xs md:text-sm font-medium">{usuario.nombre}</TableCell>
-                        <TableCell>
-                          <span
-                            className={`px-2 py-1 rounded text-[10px] md:text-xs font-medium ${
-                              usuario.rol === "super_admin"
-                                ? "bg-purple-100 text-purple-800"
-                                : usuario.rol === "admin"
-                                ? "bg-blue-100 text-blue-800"
-                                : "bg-gray-100 text-gray-800"
-                            }`}
-                          >
-                            {usuario.rol === "super_admin"
-                              ? "Super Admin"
-                              : usuario.rol === "admin"
-                              ? "Admin"
-                              : "Residente"}
-                          </span>
-                        </TableCell>
-                        <TableCell className="text-xs md:text-sm">
-                          {usuario.conjunto_id
-                            ? conjuntos.find((c) => c.id === usuario.conjunto_id)?.nombre ||
-                              "N/A"
-                            : "Sin conjunto"}
-                        </TableCell>
-                        <TableCell className="text-xs md:text-sm">
-                          {usuario.unidad || "-"}
-                        </TableCell>
-                        <TableCell>
-                          {usuario.rol !== "super_admin" && (
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => {
-                                setUserToDelete(usuario);
-                                setShowDeleteDialog(true);
-                              }}
-                              className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                              <span className="sr-only">Eliminar usuario</span>
-                            </Button>
-                          )}
-                        </TableCell>
+                <div className="overflow-x-auto -mx-3 px-3 md:mx-0 md:px-0 no-scrollbar">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-[10px] md:text-sm min-w-[140px] py-2">Email</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[90px] py-2">Nombre</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[80px] py-2">Rol</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[110px] py-2">Conjunto</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[60px] py-2">Unidad</TableHead>
+                        <TableHead className="text-[10px] md:text-sm min-w-[50px] py-2">Acciones</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {users.map((usuario) => (
+                        <TableRow key={usuario.id}>
+                          <TableCell className="text-[10px] md:text-sm py-2">
+                            <div className="flex items-center gap-1.5">
+                              <Mail className="h-2.5 w-2.5 md:h-4 md:w-4 text-muted-foreground shrink-0" />
+                              <span className="truncate max-w-[120px] md:max-w-none">{usuario.email}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-[10px] md:text-sm font-medium py-2">{usuario.nombre}</TableCell>
+                          <TableCell className="py-2">
+                            <span
+                              className={`px-1.5 py-0.5 md:px-2 md:py-1 rounded text-[9px] md:text-xs font-medium whitespace-nowrap ${
+                                usuario.rol === "super_admin"
+                                  ? "bg-purple-100 text-purple-800"
+                                  : usuario.rol === "admin"
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-gray-100 text-gray-800"
+                              }`}
+                            >
+                              {usuario.rol === "super_admin"
+                                ? "Super Admin"
+                                : usuario.rol === "admin"
+                                ? "Admin"
+                                : "Residente"}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-[10px] md:text-sm py-2">
+                            {usuario.conjunto_id
+                              ? conjuntos.find((c) => c.id === usuario.conjunto_id)?.nombre ||
+                                "N/A"
+                              : "Sin conjunto"}
+                          </TableCell>
+                          <TableCell className="text-[10px] md:text-sm py-2">
+                            {usuario.unidad || "-"}
+                          </TableCell>
+                          <TableCell className="py-2">
+                            {usuario.rol !== "super_admin" && (
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => {
+                                  setUserToDelete(usuario);
+                                  setShowDeleteDialog(true);
+                                }}
+                                className="h-7 w-7 md:h-8 md:w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                aria-label="Eliminar usuario"
+                              >
+                                <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
+                                <span className="sr-only">Eliminar usuario</span>
+                              </Button>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               )}
             </CardContent>
           </Card>

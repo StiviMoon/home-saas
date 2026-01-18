@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ import { reportsApiService } from "@/lib/services/reports-api.service";
 import { conjuntosApiService } from "@/lib/services/conjuntos-api.service";
 import { usersApiService } from "@/lib/services/users-api.service";
 import { AuthGuard } from "@/components/auth/auth-guard";
-import { Loader2, Plus, FileText, AlertCircle, CheckCircle2, Clock, XCircle, UserCog, Building2, Home, MapPin, Calendar, Users, User as UserIcon } from "lucide-react";
+import { Loader2, Plus, FileText, AlertCircle, CheckCircle2, Clock, XCircle, Building2, Home, MapPin, Calendar, Users, User as UserIcon, LogOut, Settings2, Key, Copy, Check } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Report } from "@/lib/types/report";
 import type { Conjunto } from "@/lib/types/conjunto";
@@ -28,6 +28,7 @@ const DashboardPage = () => {
   const { user, logout } = useAuth();
   const { user: userData, isLoading: userLoading, hasConjunto, isAdmin, isSuperAdmin } = useUser();
   const router = useRouter();
+  const [copiedCode, setCopiedCode] = useState(false);
 
   // Redirigir si no tiene conjunto (excepto super admins)
   // IMPORTANTE: Esperar a que userData esté cargado completamente antes de redirigir
@@ -204,7 +205,8 @@ const DashboardPage = () => {
         {/* Header móvil sticky */}
         <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/80 border-b border-border/50 shadow-sm">
           <div className="px-4 py-3 md:px-8 md:py-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
+              {/* Título y subtítulo */}
               <div className="flex-1 min-w-0">
                 <h1 className="text-xl md:text-3xl font-bold tracking-tight truncate">
                   {isSuperAdmin ? "Dashboard" : isAdmin ? "Dashboard" : "Mis Reportes"}
@@ -217,29 +219,36 @@ const DashboardPage = () => {
                     : "Gestiona tus reportes"}
                 </p>
               </div>
-              <div className="flex items-center gap-2 ml-2">
+              
+              {/* Acciones - mejor organizadas */}
+              <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
+                {/* Botones de administración */}
                 {isSuperAdmin && (
                   <Button 
                     onClick={() => router.push("/admin")} 
                     size="sm"
-                    className="hidden md:flex gap-2"
+                    className="gap-1.5 md:gap-2 px-2.5 md:px-3 h-9 md:h-10"
                     variant="outline"
+                    aria-label="Panel de administración"
                   >
-                    <UserCog className="h-4 w-4" />
-                    Panel Admin
+                    <Settings2 className="h-4 w-4 md:h-[18px] md:w-[18px]" />
+                    <span className="hidden lg:inline text-xs md:text-sm">Panel Admin</span>
                   </Button>
                 )}
                 {isAdmin && !isSuperAdmin && (
                   <Button 
                     onClick={() => router.push("/dashboard/admin-conjunto")} 
                     size="sm"
-                    className="hidden md:flex gap-2"
+                    className="gap-1.5 md:gap-2 px-2.5 md:px-3 h-9 md:h-10"
                     variant="outline"
+                    aria-label="Gestionar conjunto"
                   >
-                    <Users className="h-4 w-4" />
-                    Gestionar
+                    <Users className="h-4 w-4 md:h-[18px] md:w-[18px]" />
+                    <span className="hidden lg:inline text-xs md:text-sm">Gestionar</span>
                   </Button>
                 )}
+                
+                {/* Botón cerrar sesión - con icono diferente */}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -247,10 +256,11 @@ const DashboardPage = () => {
                     toast.info("Cerrando sesión...");
                     await logout();
                   }}
-                  className="h-9 w-9"
+                  className="h-9 w-9 md:h-10 md:w-10 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                  aria-label="Cerrar sesión"
                 >
+                  <LogOut className="h-4 w-4 md:h-5 md:w-5" />
                   <span className="sr-only">Cerrar sesión</span>
-                  <UserCog className="h-5 w-5" />
                 </Button>
               </div>
             </div>
@@ -282,6 +292,42 @@ const DashboardPage = () => {
                           <p className="text-xs text-muted-foreground">Unidad</p>
                           <p className="text-sm md:text-base font-semibold">{userData.unidad}</p>
                         </div>
+                      </div>
+                    )}
+                    {isAdmin && conjuntoData.codigo_acceso && (
+                      <div className="pt-2 border-t">
+                        <p className="text-xs text-muted-foreground mb-2">Código de Acceso</p>
+                        <div className="flex items-center gap-2 p-2 bg-muted rounded-md">
+                          <Key className="h-4 w-4 text-primary shrink-0" />
+                          <code className="flex-1 text-sm md:text-base font-mono font-semibold text-primary">
+                            {conjuntoData.codigo_acceso}
+                          </code>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 shrink-0"
+                            onClick={async () => {
+                              try {
+                                await navigator.clipboard.writeText(conjuntoData.codigo_acceso);
+                                setCopiedCode(true);
+                                toast.success("Código copiado al portapapeles");
+                                setTimeout(() => setCopiedCode(false), 2000);
+                              } catch {
+                                toast.error("Error al copiar el código");
+                              }
+                            }}
+                            aria-label="Copiar código de acceso"
+                          >
+                            {copiedCode ? (
+                              <Check className="h-4 w-4 text-green-600" />
+                            ) : (
+                              <Copy className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
+                        <p className="text-[10px] md:text-xs text-muted-foreground mt-1.5">
+                          Comparte este código con los residentes para que se unan al conjunto
+                        </p>
                       </div>
                     )}
                     <div className="pt-2 border-t">

@@ -19,7 +19,7 @@ import { conjuntosApiService } from "@/lib/services/conjuntos-api.service";
 import { usersApiService } from "@/lib/services/users-api.service";
 import { useQueryClient } from "@tanstack/react-query";
 import { AuthGuard } from "@/components/auth/auth-guard";
-import { Loader2, Building2, Key } from "lucide-react";
+import { Loader2, Building2, Key, LogOut } from "lucide-react";
 import type { Conjunto } from "@/lib/types/conjunto";
 
 const SelectConjuntoPage = () => {
@@ -157,8 +157,8 @@ const SelectConjuntoPage = () => {
 
   return (
     <AuthGuard requireAuth={true}>
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
+      <div className="min-h-screen flex items-center justify-center p-4 py-8">
+        <Card className="w-full max-w-md shadow-lg">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center flex items-center justify-center gap-2">
               <Building2 className="h-6 w-6" />
@@ -280,12 +280,13 @@ const SelectConjuntoPage = () => {
               <Button
                 type="button"
                 variant="ghost"
-                className="w-full"
+                className="w-full gap-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                 onClick={async () => {
                   await logout();
                   router.push("/login");
                 }}
               >
+                <LogOut className="h-4 w-4" />
                 Cerrar Sesión
               </Button>
             </div>
