@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@theme {
+  /* Esquema de colores claro y amigable */
+  --color-background: hsl(0 0% 98%);
+  --color-foreground: hsl(222 47% 11%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222 47% 11%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222 47% 11%);
+  /* Color primario azul amigable y vibrante */
+  --color-primary: hsl(221 83% 53%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(210 40% 96%);
+  --color-secondary-foreground: hsl(222 47% 11%);
+  --color-muted: hsl(210 40% 96%);
+  --color-muted-foreground: hsl(215 16% 47%);
+  --color-accent: hsl(210 40% 96%);
+  --color-accent-foreground: hsl(222 47% 11%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(214 32% 91%);
+  --color-input: hsl(214 32% 91%);
+  --color-ring: hsl(221 83% 53%);
+  --color-ring-offset: hsl(0 0% 98%);
+  --color-ring-offset-background: hsl(0 0% 100%);
+  --radius: 0.75rem;
+  --color-chart-1: hsl(221 83% 53%);
+  --color-chart-2: hsl(142 76% 36%);
+  --color-chart-3: hsl(30 80% 55%);
+  --color-chart-4: hsl(280 65% 60%);
+  --color-chart-5: hsl(340 75% 55%);
+}
+
+@theme dark {
+  /* Tema dark más claro y amigable */
+  --color-background: hsl(222 47% 11%);
+  --color-foreground: hsl(213 31% 91%);
+  --color-card: hsl(224 71% 4%);
+  --color-card-foreground: hsl(213 31% 91%);
+  --color-popover: hsl(224 71% 4%);
+  --color-popover-foreground: hsl(213 31% 91%);
+  /* Color primario azul más brillante en dark */
+  --color-primary: hsl(217 91% 60%);
+  --color-primary-foreground: hsl(222 47% 11%);
+  --color-secondary: hsl(217 33% 17%);
+  --color-secondary-foreground: hsl(213 31% 91%);
+  --color-muted: hsl(217 33% 17%);
+  --color-muted-foreground: hsl(215 20% 65%);
+  --color-accent: hsl(217 33% 17%);
+  --color-accent-foreground: hsl(213 31% 91%);
+  --color-destructive: hsl(0 63% 31%);
+  --color-destructive-foreground: hsl(213 31% 91%);
+  --color-border: hsl(217 33% 17%);
+  --color-input: hsl(217 33% 17%);
+  --color-ring: hsl(217 91% 60%);
+  --color-ring-offset: hsl(222 47% 11%);
+  --color-ring-offset-background: hsl(224 71% 4%);
+  --color-chart-1: hsl(217 91% 60%);
+  --color-chart-2: hsl(142 76% 36%);
+  --color-chart-3: hsl(30 80% 55%);
+  --color-chart-4: hsl(280 65% 60%);
+  --color-chart-5: hsl(340 75% 55%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background: linear-gradient(to bottom, hsl(0 0% 99%), hsl(210 40% 98%));
+    color: var(--color-foreground);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+  
+  /* Dark mode background */
+  .dark body {
+    background: linear-gradient(to bottom, hsl(222 47% 11%), hsl(224 71% 4%));
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  textarea,
+  select {
+    color: var(--color-foreground) !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-muted-foreground) !important;
+    opacity: 1;
+  }
+  /* Optimización táctil móvil */
+  button,
+  a,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Mejorar scroll en móvil */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Scrollbar personalizado para desktop */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-muted-foreground);
+    border-radius: 4px;
+    opacity: 0.3;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    opacity: 0.5;
+  }
+}
+
+@layer utilities {
+  /* Animaciones suaves nativas */
+  .transition-native {
+    transition-property: transform, opacity, background-color, border-color, color, fill, stroke, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+  /* Sin scrollbar visible pero funcional */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Mejorar rendimiento de animaciones */
+  .will-change-transform {
+    will-change: transform;
+  }
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  /* Gradientes suaves para fondos */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 48%));
+  }
+  .bg-gradient-card {
+    background: linear-gradient(to bottom, hsl(0 0% 100%), hsl(210 40% 99%));
+  }
+  .dark .bg-gradient-card {
+    background: linear-gradient(to bottom, hsl(224 71% 4%), hsl(222 47% 11%));
+  }
+  /* Sombra suave para cards */
+  .shadow-card {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+  }
+  .shadow-card-lg {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  }
+  /* Optimización de texto para móvil */
+  @media (max-width: 768px) {
+    body {
+      font-size: 16px; /* Previene zoom en iOS */
+      line-height: 1.5;
+    }
+  }
+  /* Mejorar hover en cards */
+  .hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+  }
+}
